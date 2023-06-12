@@ -1,0 +1,69 @@
+#This is the required ansible playbook with required configurations 
+---
+- name: User Setup Playbook
+  hosts: appsilon_host 
+  become: true
+
+  tasks:
+      
+    - name: Copy nice-script.sh to the new user's home directory
+      copy:
+        src: nice-script.sh
+        dest: /etc/skel/
+         #owner: john
+        #    group: john
+    #    mode: 0755
+    
+    - name: Create user 'john' with specific user ID
+      user:
+        name: john
+        uid: 1234
+        home: /better-place/john
+        shell: /bin/bash
+        state: present
+        password: $6$v66OIpDE5qEFRC$r7Lgt6qndrr2uSVCzD8Sg8jkg9oPbvUYmDPOGL0zHujPyr6y8wuTkNynhG9XWR6YzUBHVqKN0RaKIKWdgCVrK0
+
+   
+    - name: Create home directory for new user
+      file:
+        path: /better-place/john
+        state: directory
+
+    
+
+    - name: Allow user 'john' to run 'whoami' with sudo without password
+      lineinfile:
+        path: /etc/sudoers
+        line: 'john ALL=(ALL:ALL) NOPASSWD: /usr/bin/whoami'
+
+    - name: Install Tmux package
+      apt:
+        name: tmux
+        state: present
+
+    - name: Install Vim package
+      apt:
+        name: vim
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install unzip package
+      apt:
+        name: unzip
+        state: present
+
+    - name: Download Terraform binary
+      get_url:
+        url: "https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip"
+        dest: "/tmp/terraform.zip"
+
+    - name: Extract Terraform binary
+      unarchive:
+        src: "/tmp/terraform.zip"
+        dest: "/usr/local/bin/"
+        remote_src: yes
+        mode: 0755
+        creates: "/usr/local/bin/terraform"
