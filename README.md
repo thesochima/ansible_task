@@ -9,4 +9,5 @@ I configured a 8GB gp2 EBS for the instance and launched the instance.
 Another ec2 instance with the same configurations was created named "ansible_server" with the inventry file in the home directory
 The playbook script is in the test.yaml file also in the home directory   
 The required nice-script.sh is also in the home directory.
-run the ansible playbook as seen in the git repository.
+to run the ansible playbook as seen in the git repository, run the "ansible-playbook -i inventory test.yaml"
+
