@@ -1,7 +1,7 @@
 # ansible_task
 From the aws console i was able to navigate to the 'ec2 dashboard' and i  clicked on 'launch instance' 
-and during the process of creating the instance i selected  the t2 micro free tier instance
-the ubuntu 20.04 AMI "amazon/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20230517" was selected to prioritize stability.
+During the process of creating the instance i selected  the t2 micro free tier instance
+I also slected the ubuntu 20.04 AMI with the link "amazon/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20230517" to prioritize stability.
 I created a key pair to securely connect to the instance.
 A security group was created to allow ssh traffic and https traffic to the instance.
 I configured a 8GB gp2 EBS for the instance and launched the instance.
